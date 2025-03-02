@@ -1,6 +1,6 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React based, learning fetching API using ReactJS, from [Laravel Clean Architecture API](https://github.com/raffinauvall/laravel-clean-architecture)
 
 Currently, two official plugins are available:
 
