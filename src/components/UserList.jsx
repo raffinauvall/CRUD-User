@@ -36,16 +36,21 @@ const UserList = () => {
           <tbody>
             {user.map((item) => {
                 return (
-                    <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.username}</td>
-                        <td>{item.password}</td>
-                        <td>
-                            <button onClick={() => alert(`Lihat detail ${item.id}`)}>
-                                Lihat
-                            </button>
-                        </td>
-                    </tr>
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.username}</td>
+                    <td>{item.password}</td>
+                    <td>
+                      <button onClick={() => alert(`Lihat detail ${item.id}`)}>
+                        Hapus
+                      </button>
+                    </td>
+                    <td>
+                      <button onClick={() => alert(`Lihat detail ${item.id}`)}>
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
                 );
             })}
           </tbody>
