@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useState, useEffect} from "react";
 
+
 const UserList = () => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,34 +25,37 @@ const UserList = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table border="1" cellPadding="10">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Password</th>
-              <th>Aksi</th>
+        <table className="border-1" cellPadding="10">
+          <thead className="border-1">
+            <tr className="text-left">
+              <th className="p-2">ID</th>
+              <th className="p-2">Username</th>
+              <th className="p-2">Nomor Telepon</th>
+              <th className="p-2">Alamat</th>
+              <th className="p-2">Aksi</th>
             </tr>
           </thead>
           <tbody>
             {user.map((item) => {
-                return (
-                  <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.username}</td>
-                    <td>{item.password}</td>
-                    <td>
-                      <button onClick={() => alert(`Lihat detail ${item.id}`)}>
-                        Hapus
-                      </button>
-                    </td>
-                    <td>
-                      <button onClick={() => alert(`Lihat detail ${item.id}`)}>
-                        Edit
-                      </button>
-                    </td>
-                  </tr>
-                );
+              return (
+                <tr key={item.id}>
+                  <td className="p-2">{item.id}</td>
+                  <td className="p-2">{item.username}</td>
+                  <td className="p-2">{item.phone_number}</td>
+                  <td className="p-2">{item.address}</td>
+                  <td className="p-2">
+                    <button
+                      className="mr-2"
+                      onClick={() => alert(`Lihat detail ${item.id}`)}
+                    >
+                      Hapus
+                    </button>
+                    <button onClick={() => alert(`Lihat detail ${item.id}`)}>
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              );
             })}
           </tbody>
         </table>
