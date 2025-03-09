@@ -21,7 +21,7 @@ const UserList = () => {
 
   return (
     <div>
-      <h2>List User</h2>
+      <h2 className="mb-2 font-bold">Selamat Datang, Raffi Nauval</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -45,12 +45,12 @@ const UserList = () => {
                   <td className="p-2">{item.address}</td>
                   <td className="p-2">
                     <button
-                      className="mr-2"
+                      className="mr-2 bg-red-500 p-2 rounded text-white"
                       onClick={() => alert(`Lihat detail ${item.id}`)}
                     >
                       Hapus
                     </button>
-                    <button onClick={() => alert(`Lihat detail ${item.id}`)}>
+                    <button className="btn btn-primary" onClick={() => alert(`Lihat detail ${item.id}`)}>
                       Edit
                     </button>
                   </td>
