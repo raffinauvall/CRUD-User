@@ -20,8 +20,13 @@ const UserList = () => {
   }, []);
 
   return (
-    <div>
-      <h2 className="mb-2 font-bold">Selamat Datang, Raffi Nauval</h2>
+    <div className="bg-white rounded-xl shadow-md p-9">
+      <div className="flex justify-between mb-2">
+        <h2 className=" font-bold text-2xl">
+          Selamat Datang, Raffi Nauval
+        </h2>
+        <button className="bg-blue-500 p-2 text-white rounded">Tambah data</button>
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -50,7 +55,10 @@ const UserList = () => {
                     >
                       Hapus
                     </button>
-                    <button className="btn btn-primary" onClick={() => alert(`Lihat detail ${item.id}`)}>
+                    <button
+                      className="bg-yellow-500 text-white p-2 rounded "
+                      onClick={() => alert(`Lihat detail ${item.id}`)}
+                    >
                       Edit
                     </button>
                   </td>
