@@ -5,6 +5,8 @@ import {useState, useEffect} from "react";
 const UserList = () => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     axios
