@@ -1,25 +1,19 @@
-import axios from "axios";
-import {useState, useEffect} from "react";
+
+import React from "react";
+import { useUserHandlers } from "../handler/userHandler";
+import DeleteUserModal from "./DeleteUserModal";
+
 
 
 const UserList = () => {
-  const [user, setUser] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/users")
-      .then((response) => {
-        setUser(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data.", error);
-        setLoading(false);
-      });
-  }, []);
+  const {
+    users,
+    loading,
+    isModalDeleteOpen,
+    openDeleteModal,
+    handleDelete,
+    setIsModalDeleteOpen,
+  } = useUserHandlers();
 
   return (
     <div className="bg-white rounded-xl shadow-md p-9">
@@ -43,7 +37,7 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            {user.map((item) => {
+            {users.map((item) => {
               return (
                 <tr key={item.id}>
                   <td className="p-2">{item.id}</td>
@@ -53,7 +47,7 @@ const UserList = () => {
                   <td className="p-2">
                     <button
                       className="mr-2 bg-red-500 p-2 rounded text-white"
-                      onClick={() => alert(`Lihat detail ${item.id}`)}
+                      onClick={() => openDeleteModal(item)}
                     >
                       Hapus
                     </button>
@@ -70,7 +64,13 @@ const UserList = () => {
           </tbody>
         </table>
       )}
+       <DeleteUserModal
+      isOpen = {isModalDeleteOpen}
+    onClose={() => setIsModalDeleteOpen(false)}
+    onConfirm={handleDelete}
+    />
     </div>
+   
   );
 };
 
