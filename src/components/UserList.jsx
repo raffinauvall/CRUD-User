@@ -2,6 +2,7 @@
 import React from "react";
 import { useUserHandlers } from "../handler/userHandler";
 import DeleteUserModal from "./DeleteUserModal";
+import CreateUserModal from "./CreateUserModal";
 
 
 
@@ -13,18 +14,28 @@ const UserList = () => {
     openDeleteModal,
     handleDelete,
     setIsModalDeleteOpen,
+    isModalCreateOpen,
+    openCreateModal,
+    handleCreate,
+    setIsModalCreateOpen
   } = useUserHandlers();
+  
 
   return (
     <div className="bg-white rounded-xl shadow-md p-9">
       <div className="flex justify-between mb-2">
-        <h2 className=" font-bold text-2xl">
-          Selamat Datang, Raffi Nauval
-        </h2>
-        <button className="bg-blue-500 p-2 text-white rounded">Tambah data</button>
+        <h2 className=" font-bold text-2xl">Selamat Datang, Raffi Nauval</h2>
+        <button
+          className="bg-blue-500 p-2 text-white rounded"
+          onClick={openCreateModal}
+        >
+          Tambah data
+        </button>
       </div>
       {loading ? (
         <p>Loading...</p>
+      ) : users.length === 0 ? (
+        <p className="text-gray-500 text-center">There are no users yet.</p>
       ) : (
         <table className="border-1" cellPadding="10">
           <thead className="border-1">
@@ -37,41 +48,46 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((item) => {
-              return (
-                <tr key={item.id}>
-                  <td className="p-2">{item.id}</td>
-                  <td className="p-2">{item.username}</td>
-                  <td className="p-2">{item.phone_number}</td>
-                  <td className="p-2">{item.address}</td>
-                  <td className="p-2">
-                    <button
-                      className="mr-2 bg-red-500 p-2 rounded text-white"
-                      onClick={() => openDeleteModal(item)}
-                    >
-                      Hapus
-                    </button>
-                    <button
-                      className="bg-yellow-500 text-white p-2 rounded "
-                      onClick={() => alert(`Lihat detail ${item.id}`)}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {users.map((item) => (
+              <tr key={item.id}>
+                <td className="p-2">{item.id}</td>
+                <td className="p-2">{item.username}</td>
+                <td className="p-2">{item.phone_number}</td>
+                <td className="p-2">{item.address}</td>
+                <td className="p-2">
+                  <button
+                    className="mr-2 bg-red-500 p-2 rounded text-white"
+                    onClick={() => openDeleteModal(item)}
+                  >
+                    Hapus
+                  </button>
+                  <button
+                    className="bg-yellow-500 text-white p-2 rounded"
+                    onClick={() => alert(`Lihat detail ${item.id}`)}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
-       <DeleteUserModal
-      isOpen = {isModalDeleteOpen}
-    onClose={() => setIsModalDeleteOpen(false)}
-    onConfirm={handleDelete}
-    />
+
+      <DeleteUserModal
+        isOpen={isModalDeleteOpen}
+        onClose={() => setIsModalDeleteOpen(false)}
+        onConfirm={handleDelete}
+      />
+      <CreateUserModal
+        isOpen={isModalCreateOpen}
+        onClose={() => setIsModalCreateOpen(false)}
+        onConfirm={handleCreate}
+      />
     </div>
-   
   );
+  
 };
+
 
 export default UserList;
