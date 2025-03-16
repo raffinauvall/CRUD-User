@@ -1,10 +1,8 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { useUserHandlers } from "../handler/userHandler";
 import DeleteUserModal from "./DeleteUserModal";
 import CreateUserModal from "./CreateUserModal";
-
-
+import UpdateUserModal from "./UpdateUserModal";
 
 const UserList = () => {
   const {
@@ -17,14 +15,28 @@ const UserList = () => {
     isModalCreateOpen,
     openCreateModal,
     handleCreate,
-    setIsModalCreateOpen
+    setIsModalCreateOpen,
+    handleUpdate,
+    isModalUpdateOpen,
+    setIsModalUpdateOpen,
   } = useUserHandlers();
-  
+
+  // State buat user yang dipilih pas update
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  // Debug: cek data users yang diterima
+  console.log("Users list:", users);
+
+  const openUpdateModal = (user) => {
+    console.log("Opening update modal for user:", user);
+    setSelectedUser(user); // Simpan user yang mau diupdate
+    setIsModalUpdateOpen(true);
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-md p-9">
       <div className="flex justify-between mb-2">
-        <h2 className=" font-bold text-2xl">Selamat Datang, Raffi Nauval</h2>
+        <h2 className="font-bold text-2xl">Selamat Datang, Raffi Nauval</h2>
         <button
           className="bg-blue-500 p-2 text-white rounded"
           onClick={openCreateModal}
@@ -32,6 +44,7 @@ const UserList = () => {
           Tambah data
         </button>
       </div>
+
       {loading ? (
         <p>Loading...</p>
       ) : users.length === 0 ? (
@@ -63,7 +76,7 @@ const UserList = () => {
                   </button>
                   <button
                     className="bg-yellow-500 text-white p-2 rounded"
-                    onClick={() => alert(`Lihat detail ${item.id}`)}
+                    onClick={() => openUpdateModal(item)}
                   >
                     Edit
                   </button>
@@ -73,6 +86,10 @@ const UserList = () => {
           </tbody>
         </table>
       )}
+
+      {/* Debug modal state */}
+      {console.log("Update Modal Open?", isModalUpdateOpen)}
+      {console.log("Selected User for Update:", selectedUser)}
 
       <DeleteUserModal
         isOpen={isModalDeleteOpen}
@@ -84,10 +101,14 @@ const UserList = () => {
         onClose={() => setIsModalCreateOpen(false)}
         onConfirm={handleCreate}
       />
+      <UpdateUserModal
+        isOpen={isModalUpdateOpen}
+        onClose={() => setIsModalUpdateOpen(false)}
+        onConfirm={handleUpdate}
+        user={selectedUser} // Kirim user yang mau diupdate
+      />
     </div>
   );
-  
 };
-
 
 export default UserList;
